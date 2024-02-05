@@ -1,18 +1,23 @@
 NAME = minishell
 
-MY_SOURCES = minishell.c
-
+MY_SOURCES = minishell.c invalid_input.c
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Ilibreria #-g3 -fsanitize=thread
 
+$(NAME): $(MY_OBJECTS)
+	@${MAKE} -C ./Libft
+	@$(CC) $(CFLAGS) $(MY_OBJECTS) -o $(NAME) ./Libft/libft.a -lreadline
+
 all: ${NAME}
-${NAME}: ${MY_OBJECTS}
-	@${CC} ${CFLAGS} ${MY_OBJECTS} -o ${NAME} -lreadline
+
+%.o: %.c
+	$(CC) -c $< -o $@
 
 clean:
-		rm -f $(MY_OBJECTS)
+	@${MAKE} -C ./Libft fclean
+	rm -f $(MY_OBJECTS)
 
 fclean: clean
 		rm -f $(NAME)

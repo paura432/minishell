@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/05 19:57:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/05 21:40:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int	main(int ac, char **av, char **env)
 		//detecta si es null y hace un exit
 		if(input == 0)
 			exit(0);
+		if(invalid_input(input))
+			exit(0);
 		free(input);
 	}
-
 	return(0);
 }
