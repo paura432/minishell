@@ -3,30 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/30 00:28:39 by pramos           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:52:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal(char *readline)
+void	handle_signal(int sign)
 {
-	
+	if(sign == SIGINT)
+	{
+		printf("\nMinishell->");
+	}
+}
+
+void    signal_detecter(void)
+{
+    signal(SIGINT, handle_signal);
+    signal(SIGTERM, handle_signal);
+    signal(SIGQUIT, SIG_IGN);	
 }
 
 int	main(int ac, char **av, char **env)
 {
-	if(ac > 2)
+	char *input;
+
+	if(ac > 2 && av == 0 && env == 0)
 		return(0);
-	env = 0;
-	av = 0;
+
+	signal_detecter();
 	while(1)
 	{
-		readline("Minishell->");
-		signal(readline);
+		input = readline("Minishell->");
+		if(input == 0)
+			exit(0);
+		free(input);
 	}
 
 	return(0);

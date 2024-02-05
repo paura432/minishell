@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/30 00:28:35 by pramos           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:52:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <dirent.h>
 
-void	signal(readline);
+void	handle_signal(int sign);
+void    signal_detecter(void);
 
 #endif
