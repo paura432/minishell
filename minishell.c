@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/05 19:52:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:57:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	handle_signal(int sign)
 
 void    signal_detecter(void)
 {
+	//SIGINT es la señal cntrl + c
     signal(SIGINT, handle_signal);
-    signal(SIGTERM, handle_signal);
-    signal(SIGQUIT, SIG_IGN);	
+	//SIG_ING ignora la señal en este caso cntrl + "\"
+    signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int ac, char **av, char **env)
@@ -38,6 +39,7 @@ int	main(int ac, char **av, char **env)
 	while(1)
 	{
 		input = readline("Minishell->");
+		//detecta si es null y hace un exit
 		if(input == 0)
 			exit(0);
 		free(input);
