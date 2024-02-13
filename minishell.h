@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/06 22:17:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/13 12:28:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,12 @@ void    free_split(char **inf);
 int	    change_path(char *paths, char *cmd);
 char	*find_path_mini(char **envp);
 int     created_comands(char *input);
+
+//go_comands.c
+int go_comands(char *input, char **env);
+int simple_comand(char *input, char **env);
+int compound_comand(char *input, char **env);
+int pipe_comand(char *input, char **env);
+int created_comands(char *input, char **env);
 
 #endif

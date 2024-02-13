@@ -58,36 +58,35 @@ int created_comands(char *input)
     i = 0;
     while((input[i] > 8 && input[i] < 13) || input[i] == 32)
         input++;
-    
     if(!ft_strncmp("echo ", input,  5))
         return(1);
     if(!ft_strncmp("cd ", input, 4))
         return(1);
     if(!ft_strncmp("pwd", input, 3))
         return(1);
+    if(!ft_strncmp("export ", input, 7))
+        return(1);
+    if(!ft_strncmp("unset ", input, 6))
+        return(1);
+    if(!ft_strncmp("exit ", input, 4))
+        return(1);
     return(0);
 }
 
 int	invalid_input(char *input, char **env)
 {
-	int i;
     char **inf;
     char *path;
 
-    i = 0;
     if(created_comands(input))
         return(1);
     inf = ft_split(input, ' ');
     path = find_path(env);
-    while(inf[i])
+    if(!change_paths(path, inf[0]))
     {
-         if(!change_paths(path, inf[i]))
-        {
-            printf("%s : command not found\n", inf[0]);
-            free_split(inf);
-            return(0);
-        }
-        i++;
+        printf("%s : command not found\n", inf[0]);
+        free_split(inf);
+        return(0);
     }
-    return(1)
+    return(1);
 }
