@@ -23,8 +23,6 @@ void    free_split(char **inf)
 
 char	*find_path_mini(char **envp)
 {
-	if(!*envp)
-		error();
 	while (ft_strncmp("PATH=", *envp, 5))
 		envp++;
 	return (*envp + 5);
@@ -68,24 +66,23 @@ int created_comands(char *input)
         return(1);
     if(!ft_strncmp("unset ", input, 6))
         return(1);
-    if(!ft_strncmp("exit ", input, 4))
-        return(1);
+    if(!ft_strncmp("exit", input, 4))
+        exit(0);
     return(0);
 }
 
-int	invalid_input(char *input, char **env)
+int	invalid_input(t_mini *mini, char **env)
 {
-    char **inf;
     char *path;
 
-    if(created_comands(input))
+    if(created_comands(mini->input))
         return(1);
-    inf = ft_split(input, ' ');
-    path = find_path(env);
-    if(!change_paths(path, inf[0]))
+    mini->info = ft_split(mini->input, ' ');
+    path = find_path_mini(env);
+    if(!change_path(path, mini->info[0]))
     {
-        printf("%s : command not found\n", inf[0]);
-        free_split(inf);
+        printf("%s : command not found\n", mini->info[0]);
+        free_split(mini->info);
         return(0);
     }
     return(1);

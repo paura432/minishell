@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/13 12:23:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:48:40 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,21 @@ void    signal_detecter(void)
 
 int	main(int ac, char **av, char **env)
 {
-	char *input;
+	t_mini *mini;
 
+	mini = malloc(sizeof(t_mini));
 	if(ac > 2 && av == 0 && env == 0)
 		return(0);
 
 	signal_detecter();
 	while(1)
 	{
-		input = readline("Minishell->");
+		mini->input = readline("Minishell->");
 		//detecta si es null y hace un exit cntrl + d
-		if(input == 0)
+		if(mini->input == 0)
 			exit(0);
-		//detecta si el primer comando es invalido
-		invalid_input(input, env);
-
-		//go_comands(input, env);
-		free(input);
+		invalid_input(mini, env);
+		free(mini->input);
 	}
 	return(0);
 }

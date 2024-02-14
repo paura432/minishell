@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/13 12:28:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/13 19:27:37 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "Libft/libft.h"
-# include "Pipex/pipex.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -26,10 +25,41 @@
 # include <signal.h>
 # include <dirent.h>
 
+typedef struct s_env
+{
+    char *value;
+    struct s_env *next;
+} t_env;
+
+typedef struct s_token
+{
+    int i;
+    struct s_token *prev;
+    struct s_token *next;
+    char *str;
+    int  type;
+} t_token;
+
+typedef struct s_mini
+{
+    int		signin;
+    int		signout;
+	char	**info;
+	char	*input;
+    struct	s_env *env;
+    struct	s_token *token;
+} t_mini;
+
+typedef struct mini_parse
+{
+	char	**content;
+	char	*index;
+}mini_parse;
+
 //minishell.c
 void	handle_signal(int sign);
 void    signal_detecter(void);
-int	    invalid_input(char *input, char **env);
+int	    invalid_input(t_mini *input, char **env);
 
 //invalid_input.c
 void    free_split(char **inf);
@@ -37,11 +67,11 @@ int	    change_path(char *paths, char *cmd);
 char	*find_path_mini(char **envp);
 int     created_comands(char *input);
 
-//go_comands.c
-int go_comands(char *input, char **env);
-int simple_comand(char *input, char **env);
-int compound_comand(char *input, char **env);
-int pipe_comand(char *input, char **env);
-int created_comands(char *input, char **env);
+//go_comands
+int go_comands(t_mini *mini, char **env);
+int simple_comand(t_mini *mini, char **env);
+int compound_comand(t_mini *mini, char **env);
+int pipe_comand(t_mini *mini, char **env);
+int created_comands(t_mini *mini, char **env);
 
 #endif

@@ -8,9 +8,8 @@ CFLAGS = -Wall -Wextra -Werror -Ilibreria #-g3 -fsanitize=thread
 
 $(NAME): $(MY_OBJECTS)
 	@${MAKE} -C ./Libft
-	@${MAKE} -C ./Pipex
 
-	@$(CC) $(CFLAGS) $(MY_OBJECTS) -o $(NAME) ./Libft/libft.a ./Pipex/pipex.a -lreadline
+	@$(CC) $(CFLAGS) $(MY_OBJECTS) -o $(NAME) ./Libft/libft.a -lreadline
 
 all: ${NAME}
 
@@ -19,7 +18,6 @@ all: ${NAME}
 
 clean:
 	@${MAKE} -C ./Libft fclean
-	@${MAKE} -C ./Pipex fclean
 	rm -f $(MY_OBJECTS)
 
 fclean: clean
