@@ -68,20 +68,22 @@ int created_comands(char *input)
         return(1);
     if(!ft_strncmp("exit", input, 4))
         exit(0);
+    if(!ft_strncmp(">> ", input, 2) || !ft_strncmp("<< ", input, 2))
+        return(1);
     return(0);
 }
 
-int	invalid_input(t_mini *mini, char **env)
+int	invalid_input(t_mini *mini, char **env, int i)
 {
     char *path;
 
     if(created_comands(mini->input))
         return(1);
-    mini->info = ft_split(mini->input, ' ');
     path = find_path_mini(env);
-    if(!change_path(path, mini->info[0]))
+    if(!change_path(path, mini->info[i]))
     {
-        printf("%s : command not found\n", mini->info[0]);
+        printf("dentro\n");
+        printf("%s : command not found\n", mini->info[i]);
         free_split(mini->info);
         return(0);
     }

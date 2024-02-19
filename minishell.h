@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/13 19:27:37 by pramos           ###   ########.fr       */
+/*   Updated: 2024/02/18 22:58:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_mini
 {
     int		signin;
     int		signout;
+    int     compound;
 	char	**info;
 	char	*input;
     struct	s_env *env;
@@ -59,7 +60,7 @@ typedef struct mini_parse
 //minishell.c
 void	handle_signal(int sign);
 void    signal_detecter(void);
-int	    invalid_input(t_mini *input, char **env);
+int	    invalid_input(t_mini *mini, char **env, int i);
 
 //invalid_input.c
 void    free_split(char **inf);
@@ -72,6 +73,8 @@ int go_comands(t_mini *mini, char **env);
 int simple_comand(t_mini *mini, char **env);
 int compound_comand(t_mini *mini, char **env);
 int pipe_comand(t_mini *mini, char **env);
-int created_comands(t_mini *mini, char **env);
+int parse(t_mini *mini);
+
+
 
 #endif

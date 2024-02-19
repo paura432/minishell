@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/13 16:48:40 by pramos           ###   ########.fr       */
+/*   Updated: 2024/02/18 22:38:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av, char **env)
 		//detecta si es null y hace un exit cntrl + d
 		if(mini->input == 0)
 			exit(0);
-		invalid_input(mini, env);
+		go_comands(mini, env);
 		free(mini->input);
 	}
 	return(0);
