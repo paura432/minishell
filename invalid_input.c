@@ -21,13 +21,6 @@ void    free_split(char **inf)
 		free(inf[i]);
 }
 
-char	*find_path_mini(char **envp)
-{
-	while (ft_strncmp("PATH=", *envp, 5))
-		envp++;
-	return (*envp + 5);
-}
-
 int	change_path(char *paths, char *cmd)
 {
 	char	**tmp_paths;

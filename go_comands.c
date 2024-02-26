@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_comands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/26 11:10:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/26 20:01:24 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,21 @@
 int go_comands(t_mini *mini, char **env)
 {
     int comands;
-    
+    int i;
+
+    i = 0;
     mini->info = ft_split(mini->input, ' ');
     comands = parse(mini);
-    if(comands == 0 && mini->compound == 1)
-        simple_comand(mini, env);
+    // while(mini->info[i])
+    //     printf("%s\n", mini->info[i++]);
+    if(created_comands(mini, env))
+        return(1);
+    else if(comands == 0 && mini->compound == 1)
+        i = simple_comand(mini, env);
     else if(comands == 0 && mini->compound > 1)
-        compound_comand(mini, env);
+        i = compound_comand(mini, env);
     else if(comands > 0)
-        pipe_comand(mini, env);  
+        i = pipe_comand(mini, env);
 }
 
 int parse(t_mini *mini)
@@ -47,7 +53,9 @@ int simple_comand(t_mini *mini, char **env)
 {
 	int i;
 
+    i = 0;
     i = invalid_input(mini, env, 0);
+    i = execute_cmd_mini(mini->info, env);
     return(i);
 }
 
@@ -55,7 +63,9 @@ int compound_comand(t_mini *mini, char **env)
 {
     int i;
 
+    i = 0;
     i = invalid_input(mini, env, 0);
+    i = execute_cmd_mini(mini->info, env);
     return(i);
 }
 

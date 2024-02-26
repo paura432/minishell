@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/26 11:11:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/26 17:51:59 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int	    invalid_input(t_mini *mini, char **env, int i);
 
 //invalid_input.c
 void    free_split(char **inf);
-int	    change_path(char *paths, char *cmd);
-char	*find_path_mini(char **envp);
+int		change_path(char *paths, char *cmd);
 int     no_comands(char *input);
 
 //go_comands
@@ -75,6 +74,9 @@ int compound_comand(t_mini *mini, char **env);
 int pipe_comand(t_mini *mini, char **env);
 int parse(t_mini *mini);
 
-
+//mini_utils.c
+int		execute_cmd_mini(char **cmd, char **envp);
+char	*find_path_mini(char **envp);
+char	*change_paths_mini(char *paths, char *cmd);
 
 #endif
