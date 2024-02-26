@@ -49,26 +49,28 @@ int	change_path(char *paths, char *cmd)
 	return (0);
 }
 
-int created_comands(char *input)
+int no_comands(char *input)
 {
     int i;
 
     i = 0;
     while((input[i] > 8 && input[i] < 13) || input[i] == 32)
-        input++;
-    if(!ft_strncmp("echo ", input,  5))
+        i++;
+    if(!ft_strncmp("echo", input + i,  4))
         return(1);
-    if(!ft_strncmp("cd ", input, 4))
+    else if(!ft_strncmp("cd", input + i, 2))
         return(1);
-    if(!ft_strncmp("pwd", input, 3))
+    else if(!ft_strncmp("pwd", input + i, 3))
         return(1);
-    if(!ft_strncmp("export ", input, 7))
+    else if(!ft_strncmp("export", input + i, 7))
         return(1);
-    if(!ft_strncmp("unset ", input, 6))
+    else if(!ft_strncmp("unset", input + i, 6))
         return(1);
-    if(!ft_strncmp("exit", input, 4))
+    else if(!ft_strncmp("env", input + i, 3))
+        return(1);
+    else if(!ft_strncmp("exit", input + i, 4))
         exit(0);
-    if(!ft_strncmp(">> ", input, 2) || !ft_strncmp("<< ", input, 2))
+    else if(!ft_strncmp(">> ", input + i, 2) || !ft_strncmp("<< ", input, 2))
         return(1);
     return(0);
 }
@@ -77,12 +79,11 @@ int	invalid_input(t_mini *mini, char **env, int i)
 {
     char *path;
 
-    if(created_comands(mini->input))
+    if(no_comands(mini->input))
         return(1);
     path = find_path_mini(env);
     if(!change_path(path, mini->info[i]))
     {
-        printf("dentro\n");
         printf("%s : command not found\n", mini->info[i]);
         free_split(mini->info);
         return(0);

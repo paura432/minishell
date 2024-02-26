@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/18 23:28:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/26 11:10:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,3 @@ int pipe_comand(t_mini *mini, char **env)
     }
     return(1);
 }
-/*
-int created_comands(t_mini *mini, char **env)
-{
-
-}
-*/
