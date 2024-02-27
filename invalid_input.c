@@ -55,7 +55,7 @@ int no_comands(char *input)
         return(1);
     else if(!ft_strncmp("pwd", input + i, 3))
         return(1);
-    else if(!ft_strncmp("export", input + i, 7))
+    else if(!ft_strncmp("export", input + i, 6))
         return(1);
     else if(!ft_strncmp("unset", input + i, 6))
         return(1);

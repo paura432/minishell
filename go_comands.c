@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_comands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/26 20:01:24 by pramos           ###   ########.fr       */
+/*   Updated: 2024/02/27 12:43:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int go_comands(t_mini *mini, char **env)
         i = compound_comand(mini, env);
     else if(comands > 0)
         i = pipe_comand(mini, env);
+    return(i);
 }
 
 int parse(t_mini *mini)
@@ -39,6 +40,8 @@ int parse(t_mini *mini)
 
     i = 0;
     comand = 0;
+    if(no_comands(mini->input))
+        return(-1);
     while(mini->info[i])
     {
         if(mini->info[i][0] == '|')
