@@ -37,3 +37,10 @@ Priorities operator || and &&
 Lexer: It helps you to convert a sequence of characters into a sequence of tokens
 
 Parser: The parser will then check for invalid syntax and create a kind of command
+
+
+cositas de joseph
+
+variables globales ARG="32"
+$? verifica que el programa se haya cerrado correctamente 0 o 1
+
