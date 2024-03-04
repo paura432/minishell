@@ -6,7 +6,7 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/02/26 17:51:59 by pramos           ###   ########.fr       */
+/*   Updated: 2024/03/04 23:04:14 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,33 @@
 # include <signal.h>
 # include <dirent.h>
 
+# define ERROR_1 "has taken a fork"
+
 typedef struct s_env
 {
-    char *value;
-    struct s_env *next;
+	char *value;
+	struct s_env *next;
 } t_env;
 
 typedef struct s_token
 {
-    int i;
-    struct s_token *prev;
-    struct s_token *next;
-    char *str;
-    int  type;
+	int i;
+	struct s_token *prev;
+	struct s_token *next;
+	char *str;
+	int  type;
 } t_token;
 
 typedef struct s_mini
 {
-    int		signin;
-    int		signout;
-    int     compound;
+	int		signin;
+	int		signout;
+	int     compound;
 	char	**info;
 	char	*input;
-    struct	s_env *env;
-    struct	s_token *token;
+	char	*error;
+	struct	s_env *env;
+	struct	s_token *token;
 } t_mini;
 
 typedef struct mini_parse
@@ -78,5 +81,14 @@ int parse(t_mini *mini);
 int		execute_cmd_mini(char **cmd, char **envp);
 char	*find_path_mini(char **envp);
 char	*change_paths_mini(char *paths, char *cmd);
+
+//created_comands
+int created_comands(t_mini *mini, char **env);
+int cd_comand(char *input, t_mini *mini);
+int echo_comand(char *input, t_mini *mini);
+int export_comand(char *input, t_mini *mini);
+int unset_comand(char *input, t_mini *mini);
+int pwd_comand(char *input, t_mini *mini);
+int env_comand(char *input, t_mini *mini);
 
 #endif

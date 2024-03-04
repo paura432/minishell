@@ -49,6 +49,7 @@ int no_comands(char *input)
     i = 0;
     while((input[i] > 8 && input[i] < 13) || input[i] == 32)
         i++;
+    // printf("aqui%i\n", ft_strncmp("pwd", input + i, 3));
     if(!ft_strncmp("echo", input + i,  4))
         return(1);
     else if(!ft_strncmp("cd", input + i, 2))
@@ -57,7 +58,7 @@ int no_comands(char *input)
         return(1);
     else if(!ft_strncmp("export", input + i, 6))
         return(1);
-    else if(!ft_strncmp("unset", input + i, 6))
+    else if(!ft_strncmp("unset", input + i, 5))
         return(1);
     else if(!ft_strncmp("env", input + i, 3))
         return(1);
@@ -77,7 +78,6 @@ int	invalid_input(t_mini *mini, char **env, int i)
     path = find_path_mini(env);
     if(!change_path(path, mini->info[i]))
     {
-        printf("%s : command not found\n", mini->info[i]);
         free_split(mini->info);
         return(0);
     }

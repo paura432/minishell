@@ -44,3 +44,7 @@ cositas de joseph
 variables globales ARG="32"
 $? verifica que el programa se haya cerrado correctamente 0 o 1
 
+echo -n
+env $ñjaskjslkaj lo expande a null
+env $path
+export necesario el = para que entre en el env sino se queda en el export
