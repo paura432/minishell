@@ -63,7 +63,7 @@ int no_comands(char *input)
     else if(!ft_strncmp("env", input + i, 3))
         return(1);
     else if(!ft_strncmp("exit", input + i, 4))
-        exit(0);
+        return(printf("logout\n"), exit(0), 0);
     else if(!ft_strncmp(">> ", input + i, 2) || !ft_strncmp("<< ", input, 2))
         return(1);
     return(0);
@@ -73,12 +73,10 @@ int	invalid_input(t_mini *mini, char **env, int i)
 {
     char *path;
 
-    if(no_comands(mini->input))
-        return(1);
     path = find_path_mini(env);
     if(!change_path(path, mini->info[i]))
     {
-        free_split(mini->info);
+        mini->error = 1;
         return(0);
     }
     return(1);

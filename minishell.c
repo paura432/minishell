@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/04 23:31:16 by pramos           ###   ########.fr       */
+/*   Updated: 2024/03/09 12:46:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,11 @@ int	main(int ac, char **av, char **env)
 		mini->input = readline("Minishell->");
 		//detecta si es null y hace un exit cntrl + d
 		if(mini->input == 0)
-			exit(0);
+			return(printf("logout\n"), exit(0), 0);
 		if(!go_comands(mini, env))
-			printf("%s : command not found\n", mini->input);
+			check_errors(mini);
 		free(mini->input);
+		free_split(mini->info);
 	}
 	return(0);
-}
-
-void	print_error(t_mini *mini)
-{
-
 }

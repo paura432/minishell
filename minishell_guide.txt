@@ -44,7 +44,37 @@ cositas de joseph
 variables globales ARG="32"
 $? verifica que el programa se haya cerrado correctamente 0 o 1
 
+COSAS QUE COMENTAR::
+
 echo -n
 env $ñjaskjslkaj lo expande a null
 env $path
+
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ env $Desktop?
+env: ‘?’: No such file or directory
+
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ env $jlasjsaj-
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$
+
 export necesario el = para que entre en el env sino se queda en el export
+
+el export debe funcionar apesar de que haya una variable que no funcione 
+ej: export p 9l debe añadir la variable p pero el 9l no y debe enviar un mensaje de error
+
+si nos quitan permisos de ususario funciona pwd?
+
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ ls k
+ls: cannot access 'k': No such file or directory
+
+todos los comandos con *
+
+con $todo se vuelve completamente loco
+
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ export $-jsjldsjl-
+-bash: export: `himBHsjsjldsjl-': not a valid identifier
+
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ env $ah_L8- j
+env: ‘j’: No such file or directory
+
+pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ env $645
+env: ‘45’: No such file or directory

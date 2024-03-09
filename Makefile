@@ -1,6 +1,7 @@
 NAME = minishell
 
-MY_SOURCES = minishell.c invalid_input.c go_comands.c created_comands.c mini_utils.c
+MY_SOURCES = minishell.c invalid_input.c go_comands.c \
+			 created_comands.c mini_utils.c check_errors.c
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
 CC = gcc

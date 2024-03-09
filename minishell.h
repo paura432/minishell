@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/04 23:04:14 by pramos           ###   ########.fr       */
+/*   Updated: 2024/03/09 14:56:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ typedef struct s_mini
 	int     compound;
 	char	**info;
 	char	*input;
-	char	*error;
+	int		error;
+	int		info_position_i;
+	int 	info_position_j;
 	struct	s_env *env;
 	struct	s_token *token;
 } t_mini;
@@ -71,11 +73,11 @@ int		change_path(char *paths, char *cmd);
 int     no_comands(char *input);
 
 //go_comands
-int go_comands(t_mini *mini, char **env);
-int simple_comand(t_mini *mini, char **env);
-int compound_comand(t_mini *mini, char **env);
-int pipe_comand(t_mini *mini, char **env);
-int parse(t_mini *mini);
+int 	go_comands(t_mini *mini, char **env);
+int 	simple_comand(t_mini *mini, char **env);
+int 	compound_comand(t_mini *mini, char **env);
+int 	pipe_comand(t_mini *mini, char **env);
+int 	parse(t_mini *mini);
 
 //mini_utils.c
 int		execute_cmd_mini(char **cmd, char **envp);
@@ -83,12 +85,15 @@ char	*find_path_mini(char **envp);
 char	*change_paths_mini(char *paths, char *cmd);
 
 //created_comands
-int created_comands(t_mini *mini, char **env);
-int cd_comand(char *input, t_mini *mini);
-int echo_comand(char *input, t_mini *mini);
-int export_comand(char *input, t_mini *mini);
-int unset_comand(char *input, t_mini *mini);
-int pwd_comand(char *input, t_mini *mini);
-int env_comand(char *input, t_mini *mini);
+int 	created_comands(t_mini *mini, char **env);
+int 	cd_comand(char *input, t_mini *mini);
+int 	echo_comand(char *input, t_mini *mini);
+int 	export_comand(char *input, t_mini *mini);
+int 	unset_comand(char *input, t_mini *mini);
+int 	pwd_comand(char *input, t_mini *mini);
+int 	env_comand(char *input, t_mini *mini);
+
+//check_errors
+void	check_errors(t_mini *mini);
 
 #endif
