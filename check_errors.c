@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 22:54:35 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/09 15:13:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 00:03:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	check_errors(t_mini *mini)
 {
+    printf("%i\n", mini->error);
     if (mini->error == 0)
         return ;
     else if (mini->error == 1)
@@ -32,4 +33,6 @@ void	check_errors(t_mini *mini)
         printf("%s: %s: No such file or directory\n", mini->info[0], mini->info[1]);
     else if (mini->error == 8)
         printf("%s: %s: No such file or directory\n", mini->info[0], mini->info[mini->info_position_i] + mini->info_position_j);
+    else if (mini->error == 9)
+        printf("%s: '\033[A\033[B\033[3~': No such file or directory\n", mini->info[0]);
 }

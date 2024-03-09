@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/09 11:40:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/09 23:36:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int go_comands(t_mini *mini, char **env)
 //    printf("%i\n", mini->compound);
     if(created_comands(mini, env))
         return(1);
-    else if(comands == 0 && mini->compound == 1)
+    if(comands == 0 && mini->compound == 1)
         i = simple_comand(mini, env);
-    else if(comands == 0 && mini->compound > 1)
+    if(comands == 0 && mini->compound > 1)
         i = compound_comand(mini, env);
-    else if(comands > 0)
+    if(comands > 0)
         i = pipe_comand(mini, env);
     return(i);
 }
@@ -65,7 +65,7 @@ int simple_comand(t_mini *mini, char **env)
 int compound_comand(t_mini *mini, char **env)
 {
     if(!invalid_input(mini, env, 0))
-            return(0);
+        return(0);
 //    i = execute_cmd_mini(mini->info, env);
     return(1);
 }
@@ -81,7 +81,7 @@ int pipe_comand(t_mini *mini, char **env)
     {
         if(mini->info[i][0] == '|')
             if(!invalid_input(mini, env, ++i))
-                return(0);
+                return(mini->error = 1, 0);
         i++;
     }
     return(1);

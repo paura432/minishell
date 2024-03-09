@@ -67,8 +67,10 @@ int export_comand(char *input, t_mini *mini)
 	int i;
 	int j;
 
-
 	i = 0;
+	if(input[i] == '$')
+		if(dolar_parse_export(input, mini))
+			return(0);
 	while (mini->info[++i] != 0)
 	{
 		j = -1;
@@ -84,6 +86,7 @@ int export_comand(char *input, t_mini *mini)
 	i = 0;
 	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)
 		i++;
+	
 	if (input[i] == '-')
 	   return (mini->error = 3, 0);
 	if (input[i] >= '0' && input[i] <= '9')
@@ -122,15 +125,30 @@ int env_comand(char *input, t_mini *mini)
 	int i;
 
 	i = 0;
+	if (input[0] != ' ' && input[0] != 0)
+		return (mini->error = 1, 0);
+	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)
+		i++;
+	if(input[i] == '*')
+	{
+		while(input[i] == '*')
+			i++;
+		if(input[i] == 0)
+			return(mini->error = 9, 0);
+	}
+	i = 0;
 	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)
 		i++;
 	if (input[i] == '$')
 	{
+		//env $-
 		if(input[++i] == '-')
 			return (mini->error = 6, i, 0);
-		if((input[i] >= '0' && input[i] <= '9') && input[i] == 0)
+		//env $6
+		if((input[i] >= '0' && input[i] <= '9') && input[i + 1] == 0)
 			return(1);
-		if(!dolar_parse( input, mini))
+		//env $caracter alfanumerico y _
+		if(!dolar_parse_env( input, mini))
 			return (mini->error = 8, 0);
 		else
 			return (1);
@@ -144,24 +162,63 @@ int env_comand(char *input, t_mini *mini)
 	return (0);
 }
 
-int dolar_parse(char *input, t_mini *mini)
+int dolar_parse_env(char *input, t_mini *mini)
 {
 	int i;
 	int j;
 
 	i = 0;
+	j = 0;
 	while (mini->info[++i] != 0)
 	{
+		if(mini->info[i][0] != '$')
+			return (mini->info_position_j = 0, mini->info_position_i = i, 0);
 		if (!((mini->info[i][1] >= 'a' && mini->info[i][1] <= 'z') || (mini->info[i][1] >= 'A' &&
-			mini->info[i][1] <= 'Z') || mini->info[i][1] == '_') || mini->info[i][1] == 'ñ')
+			mini->info[i][1] <= 'Z') || mini->info[i][1] == '_') || mini->info[i][1] == 'ñ' ||
+			(mini->info[i][1] >= '0' && mini->info[i][1] <= '9'))
+			{
+				if(mini->info[i][1] >= '0' && mini->info[i][1] <= '9')
+					j = 2;
 				return (mini->info_position_j = j, mini->info_position_i = i, 0);
+			}	
 		j = 0;
 		while (mini->info[i][++j] != 0)
 		{
 			if (!((mini->info[i][j] >= 'a' && mini->info[i][j] <= 'z') || (mini->info[i][j] >= 'A' &&
 				mini->info[i][j] <= 'Z') || (mini->info[i][j] >= '0' && mini->info[i][j] <= '9') ||
-				mini->info[i][j] == '_') || mini->info[i][j] == 'ñ')				
-				return (mini->info_position_j = j, mini->info_position_i = i, 0);
+				mini->info[i][j] == '_') || mini->info[i][j] == 'ñ')
+
+					return (mini->info_position_j = j, mini->info_position_i = i, 0);		
+		}
+	}
+	return (1);
+}
+
+int dolar_parse_export(char *input, t_mini *mini)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (mini->info[++i] != 0)
+	{
+		if (!((mini->info[i][1] >= 'a' && mini->info[i][1] <= 'z') || (mini->info[i][1] >= 'A' &&
+			mini->info[i][1] <= 'Z') || mini->info[i][1] == '_') || mini->info[i][1] == 'ñ' ||
+			(mini->info[i][1] >= '0' && mini->info[i][1] <= '9'))
+			{
+				if(mini->info[i][1] >= '0' && mini->info[i][1] <= '9')
+					j++;
+				return (mini->info_position_j = (j + 1), mini->info_position_i = i, 0);
+			}	
+		j = 0;
+		while (mini->info[i][++j] != 0)
+		{
+			if (!((mini->info[i][j] >= 'a' && mini->info[i][j] <= 'z') || (mini->info[i][j] >= 'A' &&
+				mini->info[i][j] <= 'Z') || (mini->info[i][j] >= '0' && mini->info[i][j] <= '9') ||
+				mini->info[i][j] == '_') || mini->info[i][j] == 'ñ')
+
+					return (mini->info_position_j = j, mini->info_position_i = i, 0);		
 		}
 	}
 	return (1);

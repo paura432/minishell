@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/09 14:56:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 00:16:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ int 	export_comand(char *input, t_mini *mini);
 int 	unset_comand(char *input, t_mini *mini);
 int 	pwd_comand(char *input, t_mini *mini);
 int 	env_comand(char *input, t_mini *mini);
+int 	dolar_parse_export(char *input, t_mini *mini);
+int 	dolar_parse_env(char *input, t_mini *mini);
 
 //check_errors
 void	check_errors(t_mini *mini);
+
 
 #endif

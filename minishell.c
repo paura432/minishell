@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/09 12:46:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/09 23:40:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **av, char **env)
 			check_errors(mini);
 		free(mini->input);
 		free_split(mini->info);
+		free(mini->compound);
 	}
 	return(0);
 }
