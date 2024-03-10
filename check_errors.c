@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 22:54:35 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 13:09:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 19:49:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	check_errors(t_mini *mini)
     if (mini->error == 0)
         return ;
     else if (mini->error == 1)
-        printf("%s : command not found\n", mini->info[0]);
+        printf("%s : command not found\n", mini->info[mini->info_position_i]);
     else if (mini->error == 2)
-        printf("%s: `%s': not a valid identifier\n", mini->info[0], mini->info[mini->info_position_i]);
+        printf("%s: `%s': not a valid identifier\n", mini->info[mini->info_position_i], mini->info[mini->info_position_i]);
     else if (mini->error == 3)
         printf("%s: `%s': not a valid identifier\n", mini->info[0], mini->info[mini->info_position_i] + mini->info_position_j);    
     else if (mini->error == 4)

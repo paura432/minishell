@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 15:08:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 20:00:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ char	*find_path_mini(char **envp);
 char	*change_paths_mini(char *paths, char *cmd);
 
 //created_comands
-int 	created_comands(t_mini *mini, char **env);
+int 	created_comands(t_mini *mini, char **env, int pos);
 int 	cd_comand(char *input, t_mini *mini);
 int 	echo_comand(char *input, t_mini *mini);
 int 	export_comand(char *input, t_mini *mini);
 int 	unset_comand(char *input, t_mini *mini);
 int 	pwd_comand(char *input, t_mini *mini);
-int 	env_comand(char *input, t_mini *mini);
+int 	env_comand(char *input, t_mini *mini, int pos);
 int 	dolar_parse_export(char *input, t_mini *mini);
 int 	dolar_parse_env(char *input, t_mini *mini);
 

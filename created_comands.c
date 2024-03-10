@@ -12,7 +12,7 @@
 
 #include"minishell.h"
 
-int created_comands(t_mini *mini, char **env)
+int created_comands(t_mini *mini, char **env, int pos)
 {
 	int i;
 	int bol;
@@ -32,7 +32,8 @@ int created_comands(t_mini *mini, char **env)
 	else if (!ft_strncmp("unset", mini->input + i, 5))
 		bol = unset_comand(mini->input + i + 5, mini);
 	else if (!ft_strncmp("env", mini->input + i, 3))
-		bol = env_comand(mini->input + i + 3, mini);
+		bol = env_comand(mini->input + i + 3, mini, pos);
+	printf("%i\n", bol);
 	return(bol);
 }
 
@@ -71,7 +72,7 @@ int export_comand(char *input, t_mini *mini)
 		i++;
 	if(input[i] == '$')
 		if(!dolar_parse_export(input, mini))
-			return(mini->error = 3, 0);
+			return(0);
 	i = 0;
 	while (mini->info[++i] != 0)
 	{
@@ -81,7 +82,7 @@ int export_comand(char *input, t_mini *mini)
 			if (!((mini->info[i][j] >= 'a' && mini->info[i][j] <= 'z') || (mini->info[i][j] >= 'A' &&
 				mini->info[i][j] <= 'Z') || (mini->info[i][j] >= '0' && mini->info[i][j] <= '9') ||
 				mini->info[i][j] == '_') || (mini->info[i][0] >= '0' && mini->info[i][0] <= '9') ||
-				mini->info[i][j] == 'ñ' ||)
+				mini->info[i][j] == 'ñ')
 				return (mini->info_position_i = i, mini->error = 2, i, 0);
 		}
 	}
@@ -121,7 +122,7 @@ int pwd_comand(char *input, t_mini *mini)
 	return (0);
 }
 
-int env_comand(char *input, t_mini *mini)
+int env_comand(char *input, t_mini *mini, int pos)
 {
 	int i;
 
@@ -135,7 +136,7 @@ int env_comand(char *input, t_mini *mini)
 		while(input[i] == '*')
 			i++;
 		if(input[i] == 0)
-			return(mini->error = 9, 0);
+			return(mini->error = 9, mini->info_position_i = pos, 0);
 	}
 	i = 0;
 	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)

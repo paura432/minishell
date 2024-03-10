@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 15:11:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 20:00:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,20 @@ int pipe_comand(t_mini *mini, char **env)
         return(0);
     while(mini->info[i])
     {
-        if(no_comands(mini->input))
-            if(!created_comands(mini, env))
-                bol = 0;
-        else if(!invalid_input(mini, env, 0))
+        printf("%s\n", mini->info[i]);
+        if(no_comands(mini->info[i]))
+        {
+            printf("dentro no_comands\n");
+            if(!created_comands(mini, env, pos))
+                bol = 0;     
+        }
+        else if(!(invalid_input(mini, env, i)) && (mini->info[i][0] != '|' || (mini->info[i][0] != '&' && mini->info[i][1] != '&') ||
+                (mini->info[i][0] != '|' && mini->info[i][1] != '|') || (mini->info[i][0] == '>' || mini->info[i][0] == '<')))
+        {
+            printf("dentro invalid_input\n");
+            printf("%s\n", mini->info[i]);
             bol = 0;
+        }
         i++;
     }
     return(bol);

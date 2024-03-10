@@ -75,9 +75,6 @@ int	invalid_input(t_mini *mini, char **env, int i)
 
     path = find_path_mini(env);
     if(!change_path(path, mini->info[i]))
-    {
-        mini->error = 1;
-        return(0);
-    }
+        return(mini->error = 1, mini->info_position_i = i, 0);
     return(1);
 }
