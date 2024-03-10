@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 22:54:35 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 00:03:21 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 13:09:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_errors(t_mini *mini)
     else if (mini->error == 2)
         printf("%s: `%s': not a valid identifier\n", mini->info[0], mini->info[mini->info_position_i]);
     else if (mini->error == 3)
-        printf("%s: %s: invalid option\n", mini->info[0], mini->info[1]);
+        printf("%s: `%s': not a valid identifier\n", mini->info[0], mini->info[mini->info_position_i] + mini->info_position_j);    
     else if (mini->error == 4)
         printf("%s: '%s': Permission denied\n", mini->info[0], mini->info[1]);
     else if(mini->error == 5)
@@ -35,4 +35,6 @@ void	check_errors(t_mini *mini)
         printf("%s: %s: No such file or directory\n", mini->info[0], mini->info[mini->info_position_i] + mini->info_position_j);
     else if (mini->error == 9)
         printf("%s: '\033[A\033[B\033[3~': No such file or directory\n", mini->info[0]);
+    else if (mini->error == 10)
+        printf("%s: %s: invalid option\n", mini->info[0], mini->info[1]);
 }

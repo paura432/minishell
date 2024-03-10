@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 00:16:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/10 15:08:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int 	simple_comand(t_mini *mini, char **env);
 int 	compound_comand(t_mini *mini, char **env);
 int 	pipe_comand(t_mini *mini, char **env);
 int 	parse(t_mini *mini);
+int 	operators_comand(t_mini *mini, char **env);
+int 	redirecctions_comand(t_mini *mini, char **env);
 
 //mini_utils.c
 int		execute_cmd_mini(char **cmd, char **envp);
