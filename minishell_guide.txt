@@ -81,3 +81,28 @@ env: ‘45’: No such file or directory
 
  && (mini->info[i][0] != '|' || (mini->info[i][0] != '&' && mini->info[i][1] != '&') ||
                 (mini->info[i][0] != '|' && mini->info[i][1] != '|') || (mini->info[i][0] == '>' || mini->info[i][0] == '<'))
+
+
+                int created_comands(char *input, t_mini *mini, char **env, int info_pos)
+{
+	int i;
+	int bol;
+
+	i = 0;
+	bol = 0;
+	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)
+		i++;
+	if (!ft_strncmp("echo", input + i,  4))
+		bol = echo_comand(input + i + 4, mini, info_pos);
+	if (!ft_strncmp("cd", input + i, 2))
+		bol = cd_comand(input + i + 2, mini, info_pos);
+	else if (!ft_strncmp("pwd", input + i, 3))
+		bol = pwd_comand(input + i + 3, mini, info_pos);
+	else if (!ft_strncmp("export", input + i, 6))
+		bol = export_comand(mini->info[info_pos] + i + 6, mini, info_pos);
+	else if (!ft_strncmp("unset", input + i, 5))
+		bol = unset_comand(input + i + 5, mini, info_pos);
+	else if (!ft_strncmp("env", input + i, 3))
+		bol = env_comand(mini->info[info_pos] + i + 3, mini, info_pos);
+	return(bol);
+}

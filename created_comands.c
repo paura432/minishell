@@ -42,7 +42,7 @@ int cd_comand(char *input, t_mini *mini, int info_pos)
 
 	i = 0;
 	//saltamos todos los espacios
-	//printf("%s\n", input);
+	printf("%s\n", input);
 	if (mini->info[2] != 0)
 		return(mini->error = 5, 0);
 	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)

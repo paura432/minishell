@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/11 19:36:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:46:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int go_comands(t_mini *mini, char **env)
         i = pipe_comand(mini, env);
     else if(comands == 2)
         i = redirecctions_comand(mini, env);
-    else if(comands == 3)
-        i = operators_comand(mini, env);
     return(i);
 }
 
@@ -108,7 +106,7 @@ int pipe_comand(t_mini *mini, char **env)
                 printf("");
         else if(no_comands(mini->info[i]))
         {
-            // printf("dentro no_comands\n");
+            printf("dentro no_comands\n");
             if(!created_comands(mini->info[i], mini, env, i))
             {
                 bol = 0;
@@ -133,12 +131,6 @@ int pipe_comand(t_mini *mini, char **env)
         i++;
     }
     return(bol);
-}
-
-int operators_comand(t_mini *mini, char **env)
-{
-    printf("operators>>ssss>\n");
-    return(1);
 }
 
 int redirecctions_comand(t_mini *mini, char **env)
