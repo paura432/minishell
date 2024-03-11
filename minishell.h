@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 20:00:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/11 18:23:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ typedef struct s_mini
 	char	**info;
 	char	*input;
 	int		error;
-	int		info_position_i;
-	int 	info_position_j;
+	int		pipes_errors;
+	int		info_y_comand;
+	int 	info_x_comand;
+	int		info_y_created;
 	struct	s_env *env;
 	struct	s_token *token;
 } t_mini;
@@ -87,15 +89,15 @@ char	*find_path_mini(char **envp);
 char	*change_paths_mini(char *paths, char *cmd);
 
 //created_comands
-int 	created_comands(t_mini *mini, char **env, int pos);
-int 	cd_comand(char *input, t_mini *mini);
-int 	echo_comand(char *input, t_mini *mini);
-int 	export_comand(char *input, t_mini *mini);
-int 	unset_comand(char *input, t_mini *mini);
-int 	pwd_comand(char *input, t_mini *mini);
-int 	env_comand(char *input, t_mini *mini, int pos);
-int 	dolar_parse_export(char *input, t_mini *mini);
-int 	dolar_parse_env(char *input, t_mini *mini);
+int 	created_comands(char *input, t_mini *mini, char **env, int info_pos);
+int 	cd_comand(char *input, t_mini *mini, int info_pos);
+int 	echo_comand(char *input, t_mini *mini, int info_pos);
+int 	export_comand(char *input, t_mini *mini, int info_pos);
+int 	unset_comand(char *input, t_mini *mini, int info_pos);
+int 	pwd_comand(char *input, t_mini *mini, int info_pos);
+int 	env_comand(char *input, t_mini *mini, int info_pos);
+int 	dolar_parse_export(char *input, t_mini *mini, int info_pos);
+int 	dolar_parse_env(char *input, t_mini *mini, int info_pos);
 
 //check_errors
 void	check_errors(t_mini *mini);

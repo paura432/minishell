@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 20:00:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/11 19:36:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int simple_comand(t_mini *mini, char **env)
     // printf("simple\n");
     if(no_comands(mini->input))
     {
-        if(created_comands(mini, env))
+        if(created_comands(mini->input, mini, env, 0))
             return(1);
         else
             return(0);        
@@ -80,7 +80,7 @@ int compound_comand(t_mini *mini, char **env)
     // printf("compound\n");
     if(no_comands(mini->input))
     {
-        if(created_comands(mini, env))
+        if(created_comands(mini->input, mini, env, 0))
             return(1);
         else
             return(0);        
@@ -93,30 +93,43 @@ int compound_comand(t_mini *mini, char **env)
 
 int pipe_comand(t_mini *mini, char **env)
 {
-    printf("pipe>>ssss>\n");
+    // printf("pipe>>ssss>\n");
     int i;
     int bol;
 
     i = 0;
     bol = 1;
-    if(!invalid_input(mini, env, 0))
-        return(0);
+    // if(!invalid_input(mini, env, 0))
+    //     return(0);
     while(mini->info[i])
     {
-        printf("%s\n", mini->info[i]);
-        if(no_comands(mini->info[i]))
+        if((mini->info[i][0] == '|' || (mini->info[i][0] == '&' && mini->info[i][1] == '&') ||
+                (mini->info[i][0] == '|' && mini->info[i][1] == '|') || mini->info[i][0] == '>' || mini->info[i][0] == '<'))
+                printf("");
+        else if(no_comands(mini->info[i]))
         {
-            printf("dentro no_comands\n");
-            if(!created_comands(mini, env, pos))
-                bol = 0;     
+            // printf("dentro no_comands\n");
+            if(!created_comands(mini->info[i], mini, env, i))
+            {
+                bol = 0;
+                if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
+                !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
+                    i++;
+            }
+            else if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
+                !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
+                i++; //estariamos pensando en que solo nos colocan 1 input en cada comando creado, revisar
         }
-        else if(!(invalid_input(mini, env, i)) && (mini->info[i][0] != '|' || (mini->info[i][0] != '&' && mini->info[i][1] != '&') ||
-                (mini->info[i][0] != '|' && mini->info[i][1] != '|') || (mini->info[i][0] == '>' || mini->info[i][0] == '<')))
+        else if(!invalid_input(mini, env, i))
         {
-            printf("dentro invalid_input\n");
-            printf("%s\n", mini->info[i]);
             bol = 0;
+            if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
+            !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
+                i++;
         }
+        else if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
+            !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
+            i++;
         i++;
     }
     return(bol);

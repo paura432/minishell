@@ -78,3 +78,6 @@ env: ‘j’: No such file or directory
 
 pau@DESKTOP-2VM55JD:/mnt/c/Users/paura$ env $645
 env: ‘45’: No such file or directory
+
+ && (mini->info[i][0] != '|' || (mini->info[i][0] != '&' && mini->info[i][1] != '&') ||
+                (mini->info[i][0] != '|' && mini->info[i][1] != '|') || (mini->info[i][0] == '>' || mini->info[i][0] == '<'))

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/10 15:09:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/11 19:33:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void    signal_detecter(void)
     signal(SIGQUIT, SIG_IGN);
 }
 
+void	leaks()
+{
+	system("leaks -q minishell");
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_mini *mini;
@@ -36,14 +41,14 @@ int	main(int ac, char **av, char **env)
 	if(ac > 2 && av == 0 && env == 0)
 		return(0);
 	signal_detecter();
+	leaks();
 	while(1)
 	{
 		mini->input = readline("Minishell->");
 		//detecta si es null y hace un exit cntrl + d
 		if(mini->input == 0)
 			return(printf("logout\n"), exit(0), 0);
-		if(!go_comands(mini, env))
-			check_errors(mini);
+		go_comands(mini, env);
 		free(mini->input);
 		free_split(mini->info);
 	}
