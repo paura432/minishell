@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/11 18:23:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/12 18:02:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <dirent.h>
+
+# define EMPTY 0
+# define CMD 1
+# define ARG 2
+# define TRUNC 3
+# define APPEND 4
+# define INPUT 5
+# define PIPE 6
+# define END 7
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+# define SKIP 1
+# define NOSKIP 0
+# define EXPANSION 36
+# define UNKNOWN_COMMAND 127
+# define ERROR 1
+# define SUCCESS 0
 
 # define ERROR_1 "has taken a fork"
 
@@ -101,6 +121,18 @@ int 	dolar_parse_env(char *input, t_mini *mini, int info_pos);
 
 //check_errors
 void	check_errors(t_mini *mini);
+
+//token.c
+t_token *get_tokens(char *line);
+void    ft_jump_space(const char *str, int *i);
+static int ignore_sep(char *line, int i);
+t_token *next_token(char *line, int *i);
+t_token *get_tokens(char *line);
+void    ft_jump_space(const char *str, int *i);
+static int ignore_sep(char *line, int i);
+t_token *next_token(char *line, int *i);
+void type_token(t_token *token, int separator);
+int next_alloc(char *line, int *i);
 
 
 #endif

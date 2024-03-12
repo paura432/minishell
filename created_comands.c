@@ -80,8 +80,7 @@ int export_comand(char *input, t_mini *mini, int info_pos)
 		{
 			if (!((mini->info[i][j] >= 'a' && mini->info[i][j] <= 'z') || (mini->info[i][j] >= 'A' &&
 				mini->info[i][j] <= 'Z') || (mini->info[i][j] >= '0' && mini->info[i][j] <= '9') ||
-				mini->info[i][j] == '_') || (mini->info[i][0] >= '0' && mini->info[i][0] <= '9') ||
-				mini->info[i][j] == 'ñ')
+				mini->info[i][j] == '_') || (mini->info[i][0] >= '0' && mini->info[i][0] <= '9'))
 				return (mini->info_y_created = i - 1, mini->info_y_comand = i, mini->error = 2, check_errors(mini), 0);
 		}
 	}
@@ -175,7 +174,7 @@ int dolar_parse_env(char *input, t_mini *mini, int info_pos)
 		// if(mini->info[i][0] != '$')
 		// 	return (mini->info_x_comand = 0, mini->info_y_comand = i, 0);
 		if (!((mini->info[i][1] >= 'a' && mini->info[i][1] <= 'z') || (mini->info[i][1] >= 'A' &&
-			mini->info[i][1] <= 'Z') || mini->info[i][1] == '_') || mini->info[i][1] == 'ñ' ||
+			mini->info[i][1] <= 'Z') || mini->info[i][1] == '_') ||
 			(mini->info[i][1] >= '0' && mini->info[i][1] <= '9'))
 			{
 				if(mini->info[i][1] >= '0' && mini->info[i][1] <= '9')
@@ -187,7 +186,7 @@ int dolar_parse_env(char *input, t_mini *mini, int info_pos)
 		{
 			if (!((mini->info[i][j] >= 'a' && mini->info[i][j] <= 'z') || (mini->info[i][j] >= 'A' &&
 				mini->info[i][j] <= 'Z') || (mini->info[i][j] >= '0' && mini->info[i][j] <= '9') ||
-				mini->info[i][j] == '_') || mini->info[i][j] == 'ñ')
+				mini->info[i][j] == '_'))
 					return (mini->info_x_comand = j, mini->info_y_comand = i, check_errors(mini), 0);		
 		}
 	}
@@ -212,7 +211,7 @@ int dolar_parse_export(char *input, t_mini *mini, int info_pos)
 			{
 				if (!((mini->info[i][j] >= 'a' && mini->info[i][j] <= 'z') || (mini->info[i][j] >= 'A' &&
 					mini->info[i][j] <= 'Z') || (mini->info[i][j] >= '0' && mini->info[i][j] <= '9') ||
-					mini->info[i][j] == '_') || mini->info[i][j] == 'ñ')
+					mini->info[i][j] == '_'))
 						return (mini->error = 3, mini->info_x_comand = j, mini->info_y_comand = i, check_errors(mini), 0);
 			}
 		}

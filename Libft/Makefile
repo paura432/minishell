@@ -34,6 +34,7 @@ MY_SOURCES = ft_isalpha.c \
 				ft_putnbr_fd.c \
 				ft_split.c \
 				ft_itoa.c \
+				ft_strcmp.c \
 
 SRC_BONUS = 	ft_lstnew_bonus.c \
 				ft_lstadd_front_bonus.c \
