@@ -1,0 +1,31 @@
+    while(mini->token != 0)
+    {
+        if((mini->token->str[0] == '|' || (mini->token->str[0] == '&' && mini->token->str[1] == '&') ||
+                (mini->token->str[0] == '|' && mini->token->str[1] == '|') || mini->token->str[0] == '>' || mini->token->str[0] == '<'))
+                printf("");
+        else if(no_comands(mini->token->str[i]))
+        {
+            // printf("dentro no_comands\n");
+            if(!created_comands(mini->token->str[i], mini, env, i))
+            {
+                bol = 0;
+                if(mini->token->next->str != 0 && ((mini->token->next->str[0] != '|' || !(mini->token->next->str[0] == '&' && mini->token->next->str[1] == '&') ||
+                !(mini->token->next->str[0] == '|' && mini->token->next->str[1] == '|') || mini->token->next->str[0] != '>' || mini->token->next->str[0] != '<')))
+                    mini->token = mini->token->next;
+            }
+            else if(mini->token->next->str != 0 && ((mini->token->next->str[0] != '|' || !(mini->token->next->str[0] == '&' && mini->token->next->str[1] == '&') ||
+                !(mini->token->next->str[0] == '|' && mini->token->next->str[1] == '|') || mini->token->next->str[0] != '>' || mini->token->next->str[0] != '<')))
+                mini->token = mini->token->next; //estariamos pensando en que solo nos colocan 1 input en cada comando creado, revisar
+        }
+        else if(!invalid_input(mini, mini->token->str, env, i))
+        {
+            bol = 0;
+            if(mini->token->next->str != 0 && ((mini->token->next->str[0] != '|' || !(mini->token->next->str[0] == '&' && mini->token->next->str[1] == '&') ||
+            !(mini->token->next->str[0] == '|' && mini->token->next->str[1] == '|') || mini->token->next->str[0] != '>' || mini->token->next->str[0] != '<')))
+                mini->token = mini->token->next;
+        }
+        else if(mini->token->next->str != 0 && ((mini->token->next->str[0] != '|' || !(mini->token->next->str[0] == '&' && mini->token->next->str[1] == '&') ||
+            !(mini->token->next->str[0] == '|' && mini->token->next->str[1] == '|') || mini->token->next->str[0] != '>' || mini->token->next->str[0] != '<')))
+            mini->token = mini->token->next;
+        mini->token = mini->token->next;
+    }

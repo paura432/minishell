@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/12 18:02:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/14 12:40:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct mini_parse
 //minishell.c
 void	handle_signal(int sign);
 void    signal_detecter(void);
-int	    invalid_input(t_mini *mini, char **env, int i);
+int	    invalid_input(t_mini *mini, char *input, char **env, int i);
 
 //invalid_input.c
 void    free_split(char **inf);
@@ -120,7 +120,7 @@ int 	dolar_parse_export(char *input, t_mini *mini, int info_pos);
 int 	dolar_parse_env(char *input, t_mini *mini, int info_pos);
 
 //check_errors
-void	check_errors(t_mini *mini);
+void	check_errors(t_mini *mini, char *input, char *comand_error);
 
 //token.c
 t_token *get_tokens(char *line);
@@ -132,7 +132,7 @@ void    ft_jump_space(const char *str, int *i);
 static int ignore_sep(char *line, int i);
 t_token *next_token(char *line, int *i);
 void type_token(t_token *token, int separator);
-int next_alloc(char *line, int *i);
+int next_alloc(char *line, int *i, char *input);
 
 
 #endif

@@ -47,9 +47,10 @@ int no_comands(char *input)
     int i;
 
     i = 0;
+    printf("dentro de input\n");
     while((input[i] > 8 && input[i] < 13) || input[i] == 32)
         i++;
-    // printf("aqui%i\n", ft_strncmp("pwd", input + i, 3));
+    printf("dentro de input\n");
     if(!ft_strncmp("echo", input + i,  4))
         return(1);
     else if(!ft_strncmp("cd", input + i, 2))
@@ -69,13 +70,12 @@ int no_comands(char *input)
     return(0);
 }
 
-int	invalid_input(t_mini *mini, char **env, int i)
+int	invalid_input(t_mini *mini, char *input, char **env, int i)
 {
     char *path;
 
     path = find_path_mini(env);
-    // printf("dentro de input\n");
-    if(!change_path(path, mini->info[i]))
-        return(mini->error = 1, mini->info_y_comand = i, check_errors(mini), 0);
+    if(!change_path(path, input))
+        return(mini->error = 1, check_errors(mini, mini->input + i, 0), 0);
     return(1);
 }

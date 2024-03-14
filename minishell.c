@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/12 18:25:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/14 12:39:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ int	main(int ac, char **av, char **env)
 		mini->input = readline("Minishell->");
 		//detecta si es null y hace un exit cntrl + d
 		mini->token = get_tokens(mini->input);
-		while(mini->token->next != 0)
-			{
-				printf("%s\n", mini->token->str);
-				printf("%i\n", mini->token->type);
-				mini->token = mini->token->next;
-			}
 		if(mini->input == 0)
 			return(printf("logout\n"), exit(0), 0);
 		go_comands(mini, env);

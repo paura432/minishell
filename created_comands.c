@@ -19,6 +19,7 @@ int created_comands(char *input, t_mini *mini, char **env, int info_pos)
 
 	i = 0;
 	bol = 0;
+	printf("fuera\n");
 	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)
 		i++;
 	if (!ft_strncmp("echo", input + i,  4))
@@ -33,6 +34,7 @@ int created_comands(char *input, t_mini *mini, char **env, int info_pos)
 		bol = unset_comand(input + i + 5, mini, info_pos);
 	else if (!ft_strncmp("env", input + i, 3))
 		bol = env_comand(input + i + 3, mini, info_pos);
+	printf("fuera\n");
 	return(bol);
 }
 
@@ -43,7 +45,7 @@ int cd_comand(char *input, t_mini *mini, int info_pos)
 	i = 0;
 	//saltamos todos los espacios
 	printf("%s\n", input);
-	if (mini->info[2] != 0)
+	if (input[0] != 0)
 		return(mini->error = 5, 0);
 	while ((input[i] > 8 && input[i] < 13) || input[i] == 32)
 		i++;
