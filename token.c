@@ -39,6 +39,44 @@ int next_alloc(char *line, int *i)
     return (j - count + 1);
 }
 
+int ft_alloc_created(char *line)
+{
+    int largo;
+
+    largo = 0;
+    while(line[largo] != 0)
+    {
+        // printf("%c", line[largo]);
+        if(line[largo + 1] == '|' || line[largo + 1] == 0)
+        {
+            while ((line[largo] > 8 && line[largo] < 13) || line[largo] == 32)
+		        largo--;
+            break;
+        }
+        largo++;
+    }
+    return(largo);
+}
+
+t_token *created_token(char *line, int *i)
+{
+    t_token *token;
+    int j;
+    int k;
+
+    j = ft_alloc_created(line + *i) + 1;
+    k = 0;
+    printf("\n%i\n", j);
+    if (!(token = malloc(sizeof(t_token))) || !(token->str = malloc(sizeof(char) * j)))
+        return (NULL);
+    // printf("dentro\n");
+    while(j-- > 0)
+        token->str[k++] = line[(*i)++];
+    token->str[k] = '\0';
+    // printf("%s\n", token->str);
+    return(token);
+}
+
 t_token *get_tokens(char *line)
 {
     t_token *next;
@@ -53,7 +91,10 @@ t_token *get_tokens(char *line)
     while (line[i])
     {
         sep = ignore_sep(line, i);
-        next = next_token(line, &i);
+        if(!no_comands(line + i))
+            next = next_token(line, &i);
+        else
+            next = created_token(line, &i);
         next->prev = prev;
         if (prev)
             prev->next = next;

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:10 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/14 12:39:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/18 18:29:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,15 @@ int	main(int ac, char **av, char **env)
 	if(ac > 2 && av == 0 && env == 0)
 		return(0);
 	signal_detecter();
-	leaks();
+	// leaks();
 	while(1)
 	{
 		mini->input = readline("Minishell->");
 		//detecta si es null y hace un exit cntrl + d
-		mini->token = get_tokens(mini->input);
 		if(mini->input == 0)
-			return(printf("logout\n"), exit(0), 0);
+			return(free(mini->input), printf("logout\n"), 0);
+		mini->token = get_tokens(mini->input);
 		go_comands(mini, env);
-		free(mini->input);
-		free_split(mini->info);
 	}
 	return(0);
 }

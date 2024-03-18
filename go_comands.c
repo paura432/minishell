@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/14 12:41:07 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/18 19:04:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ int go_comands(t_mini *mini, char **env)
     int i;
 
     i = 0;
-    mini->info = ft_split(mini->input, ' ');
     comands = parse(mini);
+    while(mini->token != 0 && mini->token->prev != 0)
+        mini->token = mini->token->prev;
 //    while(mini->info[i])
 //        printf("%s\n", mini->info[i++]);
     // printf("%i\n", comands);
     // printf("%i\n", mini->compound);
-    while(mini->token != 0)
-	{
-		printf("%s\n", mini->token->prev->str);
-		printf("%i\n", mini->token->type);
-		mini->token = mini->token->next;
-	}
-    if(comands == 0 && mini->compound == 1)
+    // while(mini->token->str != 0)
+	// {
+	// 	printf("%s\n", mini->token->str);
+	// 	printf("%i\n", mini->token->type);
+	// 	mini->token = mini->token->next;
+	// }
+    // printf("dentro de bucle\n");  
+    if(comands == 0)
         i = simple_comand(mini, env);
-    else if(comands == 0 && mini->compound > 1)
-        i = compound_comand(mini, env);
     else if(comands == 1)
         i = pipe_comand(mini, env);
     else if(comands == 2)
@@ -47,8 +47,6 @@ int parse(t_mini *mini)
     int bol;
     bol = 0;
     mini->compound = 0;
-    // if(no_comands(mini->input))
-    //     return(-1);
     while(mini->token != 0)
     {
         if(mini->token->str[0] == '|')
@@ -66,7 +64,7 @@ int simple_comand(t_mini *mini, char **env)
     // printf("simple\n");
     if(no_comands(mini->input))
     {
-        if(created_comands(mini->input, mini, env, 0))
+        if(created_comands(mini->input, mini, env))
             return(1);
         else
             return(0);        
@@ -77,62 +75,51 @@ int simple_comand(t_mini *mini, char **env)
     return(1);
 }
 
-int compound_comand(t_mini *mini, char **env)
-{
-    // printf("compound\n");
-    if(no_comands(mini->token->str))
-    {
-        if(created_comands(mini->token->str, mini, env, 0))
-            return(1);
-        else
-            return(0);        
-    }
-    else if(!invalid_input(mini, mini->token->str, env, 0))
-        return(0);
-//    i = execute_cmd_mini(mini->info, env);
-    return(1);
-}
+// int compound_comand(t_mini *mini, char **env)
+// {
+//     // printf("compound\n");
+//     if(no_comands(mini->token->str))
+//     {
+//         if(created_comands(mini->token->str, mini, env, 0))
+//             return(1);
+//         else
+//             return(0);        
+//     }
+//     else if(!invalid_input(mini, mini->token->str, env, 0))
+//         return(0);
+// //    i = execute_cmd_mini(mini->info, env);
+//     return(1);
+// }
 
 int pipe_comand(t_mini *mini, char **env)
 {
     // printf("pipe>>ssss>\n");
-    int i;
     int bol;
-
-    i = 0;
+    
     bol = 1;
     // if(!invalid_input(mini, env, 0))
     //     return(0);
-    while(mini->info[i])
+    while(mini->token != 0)
     {
-        if((mini->info[i][0] == '|' || (mini->info[i][0] == '&' && mini->info[i][1] == '&') ||
-                (mini->info[i][0] == '|' && mini->info[i][1] == '|') || mini->info[i][0] == '>' || mini->info[i][0] == '<'))
-                printf("");
-        else if(no_comands(mini->info[i]))
+        if((mini->token->str[0] == '|' || mini->token->str[0] == '>' || mini->token->str[0] == '<'))
+                mini->token = mini->token->next;
+        if(no_comands(mini->token->str))
         {
             // printf("dentro no_comands\n");
-            if(!created_comands(mini->info[i], mini, env, i))
-            {
-                bol = 0;
-                if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
-                !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
-                    i++;
-            }
-            else if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
-                !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
-                i++; //estariamos pensando en que solo nos colocan 1 input en cada comando creado, revisar
+            created_comands(mini->token->str, mini, env);
+            if(mini->token->next != 0 && mini->token->next->str[0] != '|')
+                while(mini->token->next != 0 && (mini->token->next->str[0] != '|' ||
+                        mini->token->next->str[0] != '>' || mini->token->next->str[0] != '<'))
+                    mini->token = mini->token->next;
+
         }
-        else if(!invalid_input(mini, mini->token->str, env, i))
+        else if(!invalid_input(mini, mini->token->str, env, 0))
         {
+            // printf("dentro de invalid input, dentro de pipi_comand\n");
             bol = 0;
-            if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
-            !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
-                i++;
         }
-        else if(mini->info[i + 1] != 0 && ((mini->info[i + 1][0] != '|' || !(mini->info[i + 1][0] == '&' && mini->info[i + 1][1] == '&') ||
-            !(mini->info[i + 1][0] == '|' && mini->info[i + 1][1] == '|') || mini->info[i + 1][0] != '>' || mini->info[i + 1][0] != '<')))
-            i++;
-        i++;
+        // printf("%s", mini->token->str);
+        mini->token = mini->token->next;
     }
     return(bol);
 }

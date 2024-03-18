@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 23:45:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/14 12:40:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/15 21:20:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_mini
 	int     compound;
 	char	**info;
 	char	*input;
+	char	*comand;
 	int		error;
 	int		pipes_errors;
 	int		info_y_comand;
@@ -109,18 +110,19 @@ char	*find_path_mini(char **envp);
 char	*change_paths_mini(char *paths, char *cmd);
 
 //created_comands
-int 	created_comands(char *input, t_mini *mini, char **env, int info_pos);
-int 	cd_comand(char *input, t_mini *mini, int info_pos);
-int 	echo_comand(char *input, t_mini *mini, int info_pos);
-int 	export_comand(char *input, t_mini *mini, int info_pos);
-int 	unset_comand(char *input, t_mini *mini, int info_pos);
-int 	pwd_comand(char *input, t_mini *mini, int info_pos);
-int 	env_comand(char *input, t_mini *mini, int info_pos);
-int 	dolar_parse_export(char *input, t_mini *mini, int info_pos);
-int 	dolar_parse_env(char *input, t_mini *mini, int info_pos);
+int 	created_comands(char *input, t_mini *mini, char **env);
+int 	cd_comand(char *input, t_mini *mini);
+int 	echo_comand(char *input, t_mini *mini);
+int 	export_comand(char *input, t_mini *mini);
+int 	unset_comand(char *input, t_mini *mini);
+int 	pwd_comand(char *input, t_mini *mini);
+int 	env_comand(char *input, t_mini *mini);
+int 	dolar_parse_export(char *input, t_mini *mini);
+int 	dolar_parse_env(char *input, t_mini *mini);
 
 //check_errors
-void	check_errors(t_mini *mini, char *input, char *comand_error);
+void	check_errors(t_mini *mini, char *input);
+void    copy_comand(t_mini *mini, char *input);
 
 //token.c
 t_token *get_tokens(char *line);
@@ -132,7 +134,7 @@ void    ft_jump_space(const char *str, int *i);
 static int ignore_sep(char *line, int i);
 t_token *next_token(char *line, int *i);
 void type_token(t_token *token, int separator);
-int next_alloc(char *line, int *i, char *input);
+int 	next_alloc(char *line, int *i);
 
 
 #endif

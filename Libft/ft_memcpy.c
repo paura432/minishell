@@ -16,13 +16,17 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	unsigned char	*aux;
 
+	printf("fuera");
+	printf("esto %p", src);
 	aux = dst;
 	if (!dst && !src)
 		return (0);
 	while (n > 0)
 	{
+
 		*aux++ = *(unsigned char *)src++;
 		n--;
 	}
+
 	return (dst);
 }
