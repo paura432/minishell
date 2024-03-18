@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:26:08 by pramos            #+#    #+#             */
-/*   Updated: 2024/03/18 19:04:28 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/18 22:59:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int parse(t_mini *mini)
     while(mini->token != 0)
     {
         if(mini->token->str[0] == '|')
-            return(1);
+            bol = 1;
         else if(mini->token->str[0] == '>' || mini->token->str[0] == '<')
             bol = 2;
         mini->token = mini->token->next;
@@ -115,7 +115,6 @@ int pipe_comand(t_mini *mini, char **env)
         }
         else if(!invalid_input(mini, mini->token->str, env, 0))
         {
-            // printf("dentro de invalid input, dentro de pipi_comand\n");
             bol = 0;
         }
         // printf("%s", mini->token->str);
@@ -126,6 +125,38 @@ int pipe_comand(t_mini *mini, char **env)
 
 int redirecctions_comand(t_mini *mini, char **env)
 {
-    printf("redirecctions>>ssss>\n");
-    return(1);
+    // printf("pipe>>ssss>\n");
+    int bol;
+    
+    bol = 1;
+    // if(!invalid_input(mini, env, 0))
+    //     return(0);
+    while(mini->token != 0)
+    {
+        if((mini->token->str[0] == '|' || mini->token->str[0] == '>' || mini->token->str[0] == '<'))
+                mini->token = mini->token->next;
+        if(no_comands(mini->token->str))
+        {
+            // printf("dentro no_comands\n");
+            created_comands(mini->token->str, mini, env);
+            if(mini->token->next != 0 && mini->token->next->str[0] != '|')
+                while(mini->token->next != 0 && (mini->token->next->str[0] != '|' ||
+                        mini->token->next->str[0] != '>' || mini->token->next->str[0] != '<'))
+                    mini->token = mini->token->next;
+
+        }
+        // else if(redirections_check(mini, mini->tokem->str))
+        else if(!invalid_input(mini, mini->token->str, env, 0))
+        {
+            bol = 0;
+        }
+        // printf("%s", mini->token->str);
+        mini->token = mini->token->next;
+    }
+    return(bol);
 }
+
+// int redirections_check(t_list *mini, char *input)
+// {
+    
+// }
